@@ -207,6 +207,32 @@
             margin: 0 auto;
         }
         
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        
         /* Services */
         .services-grid {
             display: grid;
@@ -466,6 +492,10 @@
                 font-size: 1rem;
             }
             
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
             .contact-content {
                 grid-template-columns: 1fr;
             }
@@ -490,6 +520,7 @@
                 <nav>
                     <ul>
                         <li><a href="#home">Home</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#products">Products</a></li>
                         <li><a href="#contact">Contact</a></li>
@@ -504,8 +535,32 @@
         <div class="container">
             <h1>Small Device Consulting</h1>
             <p>Specializing in board-level electronics design, EMC mitigation, and hardware solutions for specialized applications.</p>
-            <a href="#services" class="btn">Our Services</a>
+            <a href="#gallery" class="btn">View Gallery</a>
             <a href="#products" class="btn btn-secondary">Our Products</a>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Work in Various Industries</h2>
+                <p>Explore the diverse applications of our electronic solutions across different sectors</p>
+            </div>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <img src="https://smartsensinginternational.github.io/pic/cern.jpg" alt="Research & Scientific Instruments" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://smartsensinginternational.github.io/pic/icu.jpg" alt="Medical Devices" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://smartsensinginternational.github.io/pic/jet.jpg" alt="Aviation & Defense" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://smartsensinginternational.github.io/pic/oilgas.jpg" alt="Oil & Gas Industry" class="gallery-image">
+                </div>
+            </div>
         </div>
     </section>
 
@@ -651,6 +706,7 @@
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="#home">Home</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#products">Products</a></li>
                         <li><a href="#contact">Contact</a></li>
