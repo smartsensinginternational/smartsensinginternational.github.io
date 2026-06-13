@@ -267,7 +267,7 @@
         /* Products */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
         
@@ -277,6 +277,8 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             background: var(--white);
+            display: flex;
+            flex-direction: column;
         }
         
         .product-card:hover {
@@ -306,6 +308,7 @@
         
         .product-info {
             padding: 20px;
+            flex: 1;
         }
         
         .product-info h3 {
@@ -335,7 +338,7 @@
         }
         
         .specs li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             padding-left: 15px;
             position: relative;
         }
@@ -595,6 +598,7 @@
                 <p>High-quality electronic instruments developed for research and industrial applications</p>
             </div>
             <div class="products-grid">
+                <!-- Product 1: EZRam Raman Spectrometer -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="https://smartsensinginternational.github.io/productEN_files/image004.jpg" alt="EZRam Raman Spectrometer">
@@ -618,6 +622,8 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Product 2: EZDrv High Voltage Amplifier -->
                 <div class="product-card">
                     <div class="product-image">
                         <img src="https://smartsensinginternational.github.io/productEN_files/image008.jpg" alt="EZDrv High Voltage Amplifier">
@@ -645,6 +651,33 @@
                             <a href="https://smartsensinginternational.github.io/pdf/Datasheet%20High%20Voltage%20Piezo%20Driver%20140V.pdf" class="btn btn-outline" target="_blank">140V Datasheet</a>
                             <a href="https://smartsensinginternational.github.io/pdf/Datasheet%20High%20Voltage%20Piezo%20Driver%20200V.pdf" class="btn btn-outline" target="_blank">200V Datasheet</a>
                             <a href="https://smartsensinginternational.github.io/pdf/Datasheet%20High%20Voltage%20Piezo%20Driver%20300V.pdf" class="btn btn-outline" target="_blank">300V Datasheet</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3: Ultra Low Cost PCBA Test Jig (Customized product, no datasheet button) -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://smartsensinginternational.github.io/productEN_files/imagetestjig.jpg" alt="Ultra Low Cost PCBA Test Jig" onerror="this.onerror=null; this.src='https://placehold.co/400x300/ecf0f1/2c3e50?text=PCBA+Test+Jig';">
+                    </div>
+                    <div class="product-info">
+                        <h3>Ultra Low Cost PCBA Test Jig</h3>
+                        <p>Automated bed-of-nails test fixture ideal for low-volume production. Dramatically reduces test time and cost per board.</p>
+                        <div class="specs">
+                            <h4>Key Features:</h4>
+                            <ul>
+                                <li>Ultra low cost to test under 1000 pcs per year</li>
+                                <li>Fully automated electrical test point testing</li>
+                                <li>Ultra low cost &lt;$100 per jig</li>
+                                <li>Ultra low cost &lt;$500 for OTS DAQ equipment</li>
+                                <li>Life of nails 100,000+ test cycles</li>
+                                <li>Pass/fail in mins per board</li>
+                                <li>Test up to hundreds of nails per board</li>
+                                <li>Test 1mm diameter pads with 2.5mm/2.54mm spacing</li>
+                            </ul>
+                        </div>
+                        <div class="doc-links">
+                            <a href="#" class="btn btn-outline" style="cursor:pointer;" onclick="alert('Contact us for a custom quote for the Ultra Low Cost PCBA Test Jig.')">Get Quote</a>
                         </div>
                     </div>
                 </div>
@@ -712,6 +745,7 @@
                     <ul>
                         <li><a href="#products">EZRam Raman Spectrometer</a></li>
                         <li><a href="#products">EZDrv High Voltage Amplifier</a></li>
+                        <li><a href="#products">Ultra Low Cost PCBA Test Jig</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -730,24 +764,65 @@
 
     <script>
         // Simple mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navUl = document.querySelector('nav ul');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', function() {
+                if (navUl) navUl.classList.toggle('active');
+                // simple inline style for mobile visibility
+                if (navUl && window.innerWidth <= 768) {
+                    if (navUl.style.display === 'flex') {
+                        navUl.style.display = 'none';
+                    } else {
+                        navUl.style.display = 'flex';
+                        navUl.style.flexDirection = 'column';
+                        navUl.style.alignItems = 'center';
+                    }
+                }
+            });
+        }
         
         // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a').forEach(anchor => {
+        document.querySelectorAll('nav a, .footer-column ul li a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = href;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const offset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
             });
         });
+        
+        // Ensure mobile menu toggle works with dynamic styles and add window resize handling
+        function handleMobileMenu() {
+            if (window.innerWidth > 768) {
+                if (navUl) {
+                    navUl.style.display = '';
+                    navUl.style.flexDirection = '';
+                }
+            } else {
+                if (navUl && !navUl.classList.contains('active')) {
+                    navUl.style.display = 'none';
+                } else if (navUl && navUl.classList.contains('active')) {
+                    navUl.style.display = 'flex';
+                    navUl.style.flexDirection = 'column';
+                    navUl.style.alignItems = 'center';
+                }
+            }
+        }
+        
+        window.addEventListener('resize', handleMobileMenu);
+        handleMobileMenu();
     </script>
 </body>
 </html>
